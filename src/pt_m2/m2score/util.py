@@ -106,9 +106,9 @@ def compute_weight_edits(editSeq, gold, source, cand, ref, w_t, scorer=None, sen
     # assert cand == get_ref(editSeq, source), f"src: {source}\nref: {cand}\nref_s: {get_ref(editSeq, source)}\nedits: {editSeq}"
     # gold = sorted(gold, key=lambda x: (x[0], x[1]))
     # assert ref == get_ref(gold, source), f"src: {source}\nref: {ref}\nref_s: {get_ref(gold, source)}\nedits: {gold}"
-    # edits = list(set(editSeq) | set(gold))
     editSeq = find_edits(editSeq, source, cand)
     gold = find_edits(gold, source, ref)
+    edits = list(set(editSeq) | set(gold))
     edits = sorted(edits, key=lambda x: (x[0], x[1]))
 
     for i, edit in enumerate(edits):
