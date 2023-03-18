@@ -51,13 +51,64 @@ def get_ref(edits, src):
     return " ".join(e_s)
 
 
+def find_edits(edits, source, target):
+    if len(edits) == 0:
+        return edits
+
+    # Sort the entries by their position
+    edits = sorted(edits, key=lambda x: (x[0], x[1]))
+
+    # Find first valid edits (for duplicate positions)
+    edits_by_pos = []
+    edits_buffer = []
+    for edit in edits:
+        if len(edits_buffer) == 0:
+            edits_buffer.append(edit)
+        else:
+            last = edits_buffer[-1]
+            if last[0] == edit[0] and last[1] == edit[1]:
+                edits_buffer.append(edit)
+            else:
+                edits_by_pos.append(edits_buffer)
+                edits_buffer = [edit]
+    edits_by_pos.append(edits_buffer)
+    del edits_buffer
+
+    tmp = []
+    for edit_by_pos in edits_by_pos:
+        if len(edit_by_pos) > 1:
+            tmp.extend([edit_by_pos]*len(edit_by_pos))
+        else:
+            tmp.append(edit_by_pos)
+    edits_by_pos = tmp
+
+    edit_combinations = []
+    def find_combinations(iterable, *vargs):
+        if not iterable:
+            edit_combinations.append(vargs)
+        else:
+            iter = iterable[0]
+            for i in iter:
+                find_combinations(iterable[1:], *(vargs + (i,)))
+    find_combinations(edits_by_pos)
+    
+    for edit_combination in edit_combinations:
+        if target == get_ref(edit_combination, source):
+            edits = edit_combination
+            break
+    assert target == get_ref(edits, source), f"\nsrc:   {source}\nref:   {target}\nref_s: {get_ref(edits, source)}\nedits: {edits}"
+    return edits
+
 def compute_weight_edits(editSeq, gold, source, cand, ref, w_t, scorer=None, sent_level=False):
     weight_edits, filters = {}, {}
-    editSeq = sorted(editSeq, key=lambda x: (x[0], x[1]))
-    assert cand == get_ref(editSeq, source), f"src: {source}\nref: {cand}\nref_s: {get_ref(editSeq, source)}\nedits: {editSeq}"
-    gold = sorted(gold, key=lambda x: (x[0], x[1]))
-    assert ref == get_ref(gold, source), f"src: {source}\nref: {ref}\nref_s: {get_ref(gold, source)}\nedits: {gold}"
-    edits = list(set(editSeq) | set(gold))
+
+    # editSeq = sorted(editSeq, key=lambda x: (x[0], x[1]))
+    # assert cand == get_ref(editSeq, source), f"src: {source}\nref: {cand}\nref_s: {get_ref(editSeq, source)}\nedits: {editSeq}"
+    # gold = sorted(gold, key=lambda x: (x[0], x[1]))
+    # assert ref == get_ref(gold, source), f"src: {source}\nref: {ref}\nref_s: {get_ref(gold, source)}\nedits: {gold}"
+    # edits = list(set(editSeq) | set(gold))
+    editSeq = find_edits(editSeq, source, cand)
+    gold = find_edits(gold, source, ref)
     edits = sorted(edits, key=lambda x: (x[0], x[1]))
 
     for i, edit in enumerate(edits):
