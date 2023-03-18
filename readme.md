@@ -1,3 +1,9 @@
+# Note:
+
+This repository is a fork from [pygongnlp/PT-M2](https://github.com/pygongnlp/PT-M2). The changes in this fork are licensed under a [MIT license](LICENSE). Please contact the original authors for other licensing matters. Big thanks to the original authors for sharing their code!
+
+---
+
 # PT-M2
 This repository contains the source code for ["Revisiting Grammatical Error Correction 
 Evaluation and Beyond"](), which experiments if recent pretrain-based (PT-based) metrics 
