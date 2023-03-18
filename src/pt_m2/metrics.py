@@ -3,12 +3,12 @@ import numpy as np
 import sys
 
 sys.path.append("m2score")
-from m2score.m2scorer import load_annotation
-from m2score.util import smart_open
-from m2score.levenshtein import batch_multi_pre_rec_f1, batch_multi_pre_rec_f1_sent
-from errant_score import batch_multi_pre_rec_f1_errant, batch_multi_pre_rec_f1_sent_errant, errant_load_annotation
-from bart_score import BARTScorer
-from bert_score import BERTScorer
+from .m2score.m2scorer import load_annotation
+from .m2score.util import smart_open
+from .m2score.levenshtein import batch_multi_pre_rec_f1, batch_multi_pre_rec_f1_sent
+from .errant_score import batch_multi_pre_rec_f1_errant, batch_multi_pre_rec_f1_sent_errant, errant_load_annotation
+from .bart_score import BARTScorer
+from .bert_score import BERTScorer
 
 
 class PTM2:
