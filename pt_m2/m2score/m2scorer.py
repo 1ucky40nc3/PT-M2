@@ -1,10 +1,10 @@
 
 
 import sys
-import levenshtein
 from getopt import getopt
-from util import paragraphs
-from util import smart_open
+from . import levenshtein
+from .util import paragraphs
+from .util import smart_open
 
 
 

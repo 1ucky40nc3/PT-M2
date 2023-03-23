@@ -1,13 +1,13 @@
 from optparse import OptionParser
 
-from util import uniq
 import re
 import sys
 import math
 from copy import deepcopy
 from tqdm import tqdm
 
-from util import  compute_weight_edits
+from .util import uniq
+from .util import  compute_weight_edits
 
 # batch evaluation of a list of sentences
 def batch_precision(candidates, sources, gold_edits, max_unchanged_words=2, beta=0.5, ignore_whitespace_casing=False, verbose=False):
