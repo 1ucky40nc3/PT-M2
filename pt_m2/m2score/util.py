@@ -1,9 +1,8 @@
-
-
-import operator
-import random
-import math
 import re
+import math
+import random
+import operator
+
 
 def smart_open(fname, mode = 'r'):
     if fname.endswith('.gz'):
@@ -17,6 +16,7 @@ def smart_open(fname, mode = 'r'):
 
 def randint(b, a=0):
     return random.randint(a,b)
+
 
 def uniq(seq, idfun=None):
     # order preserving                                                                          
@@ -99,6 +99,7 @@ def find_edits(edits, source, target):
     assert target == get_ref(edits, source), f"\nsrc:   {source}\nref:   {target}\nref_s: {get_ref(edits, source)}\nedits: {edits}"
     return edits
 
+
 def compute_weight_edits(editSeq, gold, source, cand, ref, w_t, scorer=None, sent_level=False):
     weight_edits, filters = {}, {}
 
@@ -141,6 +142,7 @@ def sort_dict(myDict, byValue=False, reverse=False):
         items = sorted(myDict.items())
     return items
 
+
 def max_dict(myDict, byValue=False):
     if byValue:
         skey=lambda x:x[1]
@@ -155,6 +157,7 @@ def min_dict(myDict, byValue=False):
     else:
         skey=lambda x:x[0]
     return min(myDict.items(), key=skey)
+
 
 def paragraphs(lines, is_separator=lambda x : x == '\n', joiner=''.join):
     paragraph = []
@@ -217,6 +220,7 @@ cp1252 = {
     u"\x9F": u"\u0178", # LATIN CAPITAL LETTER Y WITH DIAERESIS
 }
 
+
 def fix_cp1252codes(text):
     # map cp1252 gremlins to real unicode characters
     if re.search(u"[\x80-\x9f]", text):
@@ -229,8 +233,10 @@ def fix_cp1252codes(text):
         text = re.sub(u"[\x80-\x9f]", fixup, text)
     return text
 
+
 def clean_utf8(text):
     return filter(lambda x : x > '\x1f' and x < '\x7f', text)
+
 
 def pairs(iterable, overlapping=False):
     iterator = iterable.__iter__()
@@ -243,6 +249,7 @@ def pairs(iterable, overlapping=False):
         i += 1
     if i % 2 == 0:
         yield (token, None)
+
 
 def frange(start, end=None, inc=None):
     "A range function, that does accept float increments..."
@@ -264,6 +271,7 @@ def frange(start, end=None, inc=None):
         L.append(next)
         
     return L
+
 
 def softmax(values):
     a = max(values)

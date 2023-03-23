@@ -1,5 +1,6 @@
-from copy import deepcopy
 import math
+from copy import deepcopy
+
 from tqdm import tqdm
 
 def get_ref(edits, src):

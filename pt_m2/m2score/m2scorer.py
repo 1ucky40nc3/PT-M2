@@ -1,11 +1,7 @@
-
-
 import sys
-from getopt import getopt
-from . import levenshtein
+
 from .util import paragraphs
 from .util import smart_open
-
 
 
 def load_annotation(gold_file):

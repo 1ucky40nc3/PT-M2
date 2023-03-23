@@ -1,9 +1,13 @@
-import argparse
-import torch
 import os
+import torch
+import argparse
 
-from .utils import load_file, load_dir, write_to_csv
-from .metrics import PTM2
+from pt_m2.utils import (
+    load_file, 
+    load_dir, 
+    write_to_csv
+)
+from pt_m2.metrics import PTM2
 
 
 def main():

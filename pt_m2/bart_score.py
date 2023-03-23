@@ -1,10 +1,16 @@
-# %%
+from typing import List
+
+import traceback
+
+import numpy as np
+
 import torch
 import torch.nn as nn
-import traceback
-from transformers import BartTokenizer, BartForConditionalGeneration
-from typing import List
-import numpy as np
+
+from transformers import (
+    BartTokenizer, 
+    BartForConditionalGeneration
+)
 
 
 class BARTScorer:
