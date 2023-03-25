@@ -96,7 +96,7 @@ def find_edits(edits, source, target):
         if target == get_ref(edit_combination, source):
             edits = edit_combination
             break
-    assert target == get_ref(edits, source), f"\nsrc:   {source}\nref:   {target}\nref_s: {get_ref(edits, source)}\nedits: {edits}"
+    assert target.lstrip() == get_ref(edits, source), f"\nsrc:   {source}\nref:   {target}\nref_s: {get_ref(edits, source)}\nedits: {edits}"
     return edits
 
 
